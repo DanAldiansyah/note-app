@@ -1,9 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+
 const App = () => {
   return (
-    <div className="bg-slate-900 h-screen flex justify-center items-center">
-      <h1 className="text-white">Hello From Frontend</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
