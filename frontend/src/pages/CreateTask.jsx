@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTaskContext } from "../hooks/useTaskContext";
 
 const CreateTask = () => {
   const navigate = useNavigate();
+  const { dispatch } = useTaskContext();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -18,7 +20,6 @@ const CreateTask = () => {
       body: JSON.stringify(task),
     });
     const json = await response.json();
-    console.log(json);
 
     if (!json.success) {
       setError(json.errors);
@@ -27,6 +28,10 @@ const CreateTask = () => {
     if (json.success) {
       alert(json.message);
       navigate("/");
+      dispatch({
+        type: "CREATE_TASK",
+        payload: json.datas,
+      });
     }
   };
 
@@ -70,10 +75,15 @@ const CreateTask = () => {
           required
         />
         <div className="flex justify-between items-center">
-        <Link className="px-4 py-2 bg-(--primary) text-(--white) font-bold rounded-sm" to='/' >Back</Link>
-        <button className="px-4 py-2 bg-(--neon-green) text-(--white) font-bold rounded-sm">
-          Create
-        </button>
+          <Link
+            className="px-4 py-2 bg-(--primary) text-(--white) font-bold rounded-sm"
+            to="/"
+          >
+            Back
+          </Link>
+          <button className="px-4 py-2 bg-(--neon-green) text-(--white) font-bold rounded-sm">
+            Create
+          </button>
         </div>
         {error && <p>{error}</p>}
       </form>

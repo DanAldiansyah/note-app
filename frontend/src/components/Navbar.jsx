@@ -7,7 +7,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className="flex justify-between items-center bg-(--primary) border-b border-(--neon-green) fixed top-0 left-0 right-0 p-4">
+    <div className="z-1 flex justify-between items-center bg-(--primary) border-b border-(--neon-green) fixed top-0 left-0 right-0 p-4">
       <div className="text-(--neon-green)">
         <Link to='/' className="text-base font-medium">TaskApp</Link>
       </div>

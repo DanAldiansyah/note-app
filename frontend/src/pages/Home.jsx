@@ -1,19 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useTaskContext } from "../hooks/useTaskContext";
 import { Link } from "react-router-dom";
+import Tasks from "../components/Tasks";
 
 const Home = () => {
-  const [result, setResult] = useState(undefined);
+  const { tasks, dispatch } = useTaskContext();
   const url = "http://localhost:3000/api/task/";
 
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(url);
       const json = await response.json();
-      setResult(json.datas);
+      dispatch({
+        type: "SET_TASK",
+        payload: json.datas,
+      });
     };
 
     getData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="bg-(--primary) min-h-dvh">
@@ -26,7 +31,7 @@ const Home = () => {
       </div>
 
       <div className="px-4 py-4 rounded-t-2xl bg-(--primary) border-t-2 border-(--neon-green)">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center px-4">
           <p className="my-6 text-2xl font-extrabold text-(--white)">
             My Tasks
           </p>
@@ -37,23 +42,11 @@ const Home = () => {
             Create Task
           </Link>
         </div>
-        {result &&
-          result.map((data) => (
-            <div
-              key={data._id}
-              className="bg-(--secondary) border border-(--neon-green) rounded mb-4 p-4"
-            >
-              <h2 className="text-lg text-(--neon-green) font-bold mb-1">
-                {data.title.toUpperCase()}
-              </h2>
-              <p className="text-base text-(--white) font-medium">
-                {data.description}
-              </p>
-              <p className="text-base text-(--white)">
-                Deadline : {data.deadline}
-              </p>
-            </div>
-          ))}
+        { tasks &&
+          tasks.map(task => (
+            <Tasks key={task._id} task={task} />
+          ))
+        }
       </div>
     </div>
   );
