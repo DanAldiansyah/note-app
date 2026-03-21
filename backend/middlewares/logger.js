@@ -1,6 +1,13 @@
 const logger = (req, res, next) => {
-  console.log("\nAPI endpoint", req.path, "\nREQUEST method", req.method);
+  const date = new Date();
+  const formatedDate = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  console.log([formatedDate], req.method, req.path);
   next();
-}
+};
 
-export default logger
+export default logger;

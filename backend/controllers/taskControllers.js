@@ -64,7 +64,7 @@ const updateTask = async (req, res, next) => {
 
 const deleteTask = async (req, res, next) => {
   const { id } = req.params;
-  
+
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return response(res, 400, false, "Tidak dapat menemukan tugas");
@@ -75,7 +75,7 @@ const deleteTask = async (req, res, next) => {
     if (!task) {
       return response(res, 404, false, "Tidak dapat menemukan tugas");
     }
-    response(res, 200, true, "Hapus tugas berhasil");
+    response(res, 200, true, "Hapus tugas berhasil", task);
   } catch (error) {
     next(error);
   }

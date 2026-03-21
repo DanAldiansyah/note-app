@@ -9,8 +9,8 @@ const response = (
   res.status(statusCode).json({
     success: success,
     message: message,
-    datas: data,
-    errors: error,
+    data: data,
+    error: error,
   });
 };
 
