@@ -5,14 +5,15 @@ import { useTaskContext } from "../hooks/useTaskContext";
 const CreateTask = () => {
   const navigate = useNavigate();
   const { dispatch } = useTaskContext();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [error, setError] = useState(null);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    deadline: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const task = { title, description, deadline };
+    const task = form;
     const url = "http://localhost:3000/api/task";
     const response = await fetch(url, {
       method: "POST",
@@ -20,19 +21,24 @@ const CreateTask = () => {
       body: JSON.stringify(task),
     });
     const json = await response.json();
-
-    if (!json.success) {
-      setError(json.errors);
-    }
-
+    console.log(json);
+    
     if (json.success) {
       alert(json.message);
       navigate("/");
       dispatch({
         type: "CREATE_TASK",
-        payload: json.datas,
+        payload: json.data,
       });
     }
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -50,8 +56,8 @@ const CreateTask = () => {
         <input
           className="mb-4 p-2 text-(--white) block border border-(--neon-green) w-full rounded-md "
           type="text"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
+          onChange={handleChange}
+          name="title"
           required
         />
         <label className="block mb-2 text-white text-base font-bold">
@@ -60,8 +66,8 @@ const CreateTask = () => {
         <input
           type="text"
           className="mb-4 p-2 text-(--white) block border border-(--neon-green) w-full rounded-md "
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
+          onChange={handleChange}
+          name="description"
           required
         />
         <label className="block mb-2 text-white text-base font-bold">
@@ -70,8 +76,8 @@ const CreateTask = () => {
         <input
           type="date"
           className="mb-4 p-2 text-(--white) block border border-(--neon-green) w-full rounded-md "
-          onChange={(e) => setDeadline(e.target.value)}
-          value={deadline}
+          onChange={handleChange}
+          name="deadline"
           required
         />
         <div className="flex justify-between items-center">
@@ -85,7 +91,6 @@ const CreateTask = () => {
             Create
           </button>
         </div>
-        {error && <p>{error}</p>}
       </form>
     </div>
   );

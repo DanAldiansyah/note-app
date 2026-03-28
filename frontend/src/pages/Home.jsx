@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
 import { Link } from "react-router-dom";
-import Tasks from "../components/Tasks";
+import Tasks from "../components/TaskDetails";
 
 const Home = () => {
   const { tasks, dispatch } = useTaskContext();
-  const url = "http://localhost:3000/api/task/";
+  const url = "http://localhost:3000/api/task";
 
   useEffect(() => {
     const getData = async () => {
@@ -13,7 +13,7 @@ const Home = () => {
       const json = await response.json();
       dispatch({
         type: "SET_TASK",
-        payload: json.datas,
+        payload: json.data,
       });
     };
 
@@ -24,8 +24,8 @@ const Home = () => {
     <div className="bg-(--primary) min-h-dvh">
       <div className="py-16 px-4">
         <div>
-          <p className="mt-4 text-(--white) text-3xl font-bold">
-            Hello!!!, How Your Days Going?
+          <p className="mt-4 text-center text-(--white) text-3xl font-bold">
+            Tugas Akan Selesai Jika Dikerjakan
           </p>
         </div>
       </div>
@@ -39,14 +39,16 @@ const Home = () => {
             to="/create-task"
             className="p-2 bg-(--neon-green) text-base text-(--white) font-extrabold rounded "
           >
-            Create Task
+            Tambah 
           </Link>
         </div>
-        { tasks &&
-          tasks.map(task => (
-            <Tasks key={task._id} task={task} />
-          ))
-        }
+        {tasks?.length > 0 ? (
+          tasks.map((task) => <Tasks key={task._id} task={task} />)
+        ) : (
+          <h2 className="mt-8 text-center text-(--white) text-xl font-bold">
+            Belum Ada Tugas Silahkan Tambahkan
+          </h2>
+        )}
       </div>
     </div>
   );
