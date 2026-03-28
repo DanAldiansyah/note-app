@@ -1,5 +1,7 @@
-import trashImg from "../assets/trash-solid-full.svg";
 import { useTaskContext } from "../hooks/useTaskContext";
+import trashIcon from "../assets/icons/trash.png";
+import taskIcon from "../assets/icons/task.png";
+import dateIcon from "../assets/icons/date.png";
 
 const Tasks = ({ task }) => {
   const { dispatch } = useTaskContext();
@@ -17,7 +19,6 @@ const Tasks = ({ task }) => {
       headers: { "Content-Type": "application/json" },
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       dispatch({
         type: "DELETE_TASK",
@@ -27,22 +28,11 @@ const Tasks = ({ task }) => {
   };
 
   return (
-    <div
-      key={task._id}
-      className="bg-(--secondary) relative border border-(--neon-green) rounded mb-4 p-4"
-    >
-      <h2 className="text-lg text-(--neon-green) font-bold mb-1">
-        {task.title.toUpperCase()}
-      </h2>
-      <p className="text-base text-(--white) font-medium">{task.description}</p>
-      <p className="text-base text-(--white)">Deadline : {formatedDate}</p>
-      <button onClick={handleDelete} className="absolute top-4 right-4">
-        <img
-          className="w-6 h-6 p-1 rounded-full bg-(--neon-green)"
-          src={trashImg}
-          alt=""
-        />
-      </button>
+    <div className="relative p-4 bg-(--primary) rounded-lg">
+      <h3 className="mb-2">{task.title.toUpperCase()}</h3>
+      <p className="flex gap-2 "><img className="self-start" src={taskIcon} alt="" /> {task.description}</p>
+      <p className="flex gap-2 "><img src={dateIcon} alt="" /> {formatedDate}</p>
+      <button onClick={handleDelete}><img className="absolute top-4 right-4" src={trashIcon} alt="" /></button>
     </div>
   );
 };

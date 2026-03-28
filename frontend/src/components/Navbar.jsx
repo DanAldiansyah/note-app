@@ -1,23 +1,18 @@
-import { Link } from "react-router";
-const Navbar = () => {
-  const date = new Date();
-  const localDate = date.toLocaleDateString("id-ID", {
-    month: "short",
-    day: "numeric",
-  });
+import logout from "../assets/icons/logout.png";
 
+const Navbar = () => {
   return (
-    <div className="z-1 flex justify-between items-center bg-(--primary) border-b border-(--neon-green) fixed top-0 left-0 right-0 p-4">
-      <div className="text-(--neon-green)">
-        <Link to="/" className="text-base font-medium">
-          MyTasks
-        </Link>
+    <header className="z-1 py-2 px-6 flex justify-between items-center bg-(--primary) border-b border-gray-300 fixed top-0 left-0 right-0">
+      <div>
+        <h1>Daftar Tugas</h1>
+        <p>Welcome Aldan!</p>
       </div>
-      <div className="text-(--neon-green) text-base">{localDate}</div>
-      <div className="text-(--neon-green) text-base">
-        <Link to="/signup">Sign Up</Link>
+      <div>
+        <button className="flex gap-2 px-4 py-2 bg-(--secondary) border border-gray-500 rounded-lg ">
+          <img src={logout} alt="" /> Keluar
+        </button>
       </div>
-    </div>
+    </header>
   );
 };
 

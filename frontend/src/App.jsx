@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./pages/Home";
-import CreateTask from "./pages/CreateTask";
 import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
@@ -12,7 +11,6 @@ const App = () => {
         </Route>
 
         <Route path="/signup" element />
-        <Route path="/create-task" element={<CreateTask />} />
       </Routes>
     </BrowserRouter>
   );
