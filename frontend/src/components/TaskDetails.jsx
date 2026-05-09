@@ -28,7 +28,7 @@ const Tasks = ({ task }) => {
   };
 
   return (
-    <div className="relative p-4 bg-(--primary) rounded-lg">
+    <div className="relative p-4 mb-2 bg-(--primary) rounded-lg">
       <h3 className="mb-2">{task.title.toUpperCase()}</h3>
       <p className="flex gap-2 "><img className="self-start" src={taskIcon} alt="" /> {task.description}</p>
       <p className="flex gap-2 "><img src={dateIcon} alt="" /> {formatedDate}</p>

@@ -55,3 +55,11 @@ input:focus {
   border: 2px solid var(--color-sky-500); 
   outline: none;
 }
+
+.error{
+  border-radius: 4px;
+  color: var(--color-red-600);
+  background-color: var(--color-red-300);
+  width: 100%;
+  padding: .6rem;
+}
