@@ -2,19 +2,23 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import errorHandler from "./middlewares/errorHandler.js";
 import logger from "./middlewares/logger.js";
 
 import taskRoutes from "./routes/taskRoutes.js";
+import authRoutes from "./routes/authRoutes.js"
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(logger);
+app.use(cookieParser())
 
 
 app.use("/api", taskRoutes);
+app.use("/api", authRoutes);
 
 
 app.use(errorHandler)
